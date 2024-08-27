@@ -11,7 +11,7 @@ function App() {
   let blankCustomer = { "id": null, "name": "", "email": "", "password": "" };
   const [customers, setCustomers] = useState([]);
   const [customerDetails, setCustomerDetails] = useState(blankCustomer);
-  let addOrUpdate = (customerDetails.id >= 0) ? 'Update' : 'Add';
+  let addOrUpdate = (customerDetails.id !== null) ? 'Update' : 'Add';
  
   const getCustomers = function() {
     console.log("inside getCustomers()");
