@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { getAllCustomers, post, put, deleteById } from './data' 
+// import { getAllCustomers, post, put, deleteById } from './data' 
 import './App.css';
 import CustomerList from './components/CustomerList';
 import CustomerAddUpdateForm from './components/CustomerAddUpdateForm';
+import { getAll, post, put, deleteById } from './restdb';
 // import data from './data';
 
 function App() {
@@ -15,10 +16,11 @@ function App() {
  
   const getCustomers = function() {
     console.log("inside getCustomers()");
-    setCustomers(getAllCustomers);
+    getAll(setCustomers);
+    // setCustomers(getAllCustomers);
   }
 
-  useEffect(getCustomers, []);
+  useEffect(getCustomers, [customerDetails]);
 
   const handleListClick = function(item){
     console.log("in handleListClick() and item is: ", item);
@@ -45,18 +47,24 @@ function App() {
   }
 
   let handleDelete = function () {
+    const postOpCallback = () => {
+      setCustomerDetails(blankCustomer);
+    }
     if(customerDetails.id >= 0){
-      deleteById(customerDetails.id);
+      deleteById(customerDetails, postOpCallback);
     }
     setCustomerDetails(blankCustomer);
   }
 
 let handleSave = function () {
+  const postOpCallback = () => {
+    setCustomerDetails(blankCustomer);
+  }
   if (addOrUpdate === 'Add') {
-    post(customerDetails);
+    post(customerDetails, postOpCallback);
   }
   if (addOrUpdate === 'Update') {
-    put(customerDetails.id, customerDetails);
+    put(customerDetails, postOpCallback);
   }
   setCustomerDetails(blankCustomer);
 }
