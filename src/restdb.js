@@ -79,3 +79,24 @@ export async function deleteById(customer, postOpCallback) {
     }
     deleteCustomer(baseURL + '/' + customer.id);
 }
+
+export async function search(searchTerm) {
+    const search = async (url) => {
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors'
+            });
+            if (!response.ok) {
+                throw new Error(`Error deleting data: ${response.status}`);
+            }
+            const listdata = await response.json();
+            const data = listdata.filter(searchTerm);
+            console.log(data);
+            // postOpCallback();
+        } catch (error) {
+            alert(error);
+        }
+    }
+    search(baseURL);
+}

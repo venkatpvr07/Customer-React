@@ -16,6 +16,7 @@ table {
   margin: 5px;
   background-color: white;
   font-family: monospace;
+  width: auto;
 }
 
 input[type='text'], input[type='email']{
@@ -42,7 +43,7 @@ form{
 
 div#root {
   background-color: lightgrey;
-  width: 350px;
+  width: 650px;
 }
 
 .boxed {

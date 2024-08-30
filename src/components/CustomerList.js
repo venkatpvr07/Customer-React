@@ -1,7 +1,20 @@
+import React, { useState } from "react";
+import Pagination from "./Pagination";
+
 function CustomerList(props) {
     const customerDetails = props.customerDetails;
     const customers = props.customers;
     const handleListClick = props.handleListClick;
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(0);
+    const lastIndex = (currentPage + 1) * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const currentCustomers = customers.slice(firstIndex, lastIndex);
+
+    // const handlePageChange = (event) => {
+    //     setCurrentPage(event.selected);
+    // }
+
     return(
         <div className="Boxed">
       <h3>
@@ -16,7 +29,7 @@ function CustomerList(props) {
           </tr>
         </thead>
         <tbody>
-           {customers.map(
+           {currentCustomers.map(
               (item, index) => {
                 return (<tr key={item.id}
                 className={ (item.id === customerDetails.id )?'selected': ''}
@@ -30,6 +43,7 @@ function CustomerList(props) {
             )}
         </tbody>
       </table>
+      <Pagination currentPage = {currentPage} totalPages={Math.ceil(customers.length / itemsPerPage)} setCurrentPage={setCurrentPage} />
     </div>
     );
 };
